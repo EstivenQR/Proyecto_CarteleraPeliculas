@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Lists - Movie Reviews</title>
+  <link href="http://fonts.googleapis.com/css?family=Roboto:300,400,700|" rel="stylesheet" type="text/css">
+  <link rel="stylesheet" href="style.css">
+  <link rel="icon" type="image/png" href="images/logo.png">
+  <style>
+    .list-grid {
+      display: flex;
+      flex-direction: column;
+      gap: 15px;
+      padding: 20px;
+    }
+
+    .list-item {
+      font-size: 1.5rem;
+      font-weight: bold;
+      text-align: center;
+      color: #333;
+      background-color: #f9f9f9;
+      padding: 15px;
+      border-radius: 8px;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+      transition: transform 0.2s ease-in-out;
+    }
+
+    .list-item:hover {
+      transform: scale(1.05);
+      background-color: #ff5722;
+      color: #fff;
+    }
+  </style>
+</head>
+<body>
+  <div id="site-content">
+    <header class="site-header">
+      <div class="container">
+        <a href="index.html" id="branding">
+          <img src="images/logo.png" alt="" class="logo">
+          <div class="logo-copy">
+            <h1 class="site-title">Movie Reviews</h1>
+            <small class="site-description">La mejor plataforma en reviews</small>
+          </div>
+        </a>
+        <div class="main-navigation">
+          <ul class="menu">
+            <li class="menu-item"><a href="index.html">Home</a></li>
+            <li class="menu-item"><a href="movies.html">Movies</a></li>
+            <li class="menu-item"><a href="shows.html">TV Shows</a></li>
+            <li class="menu-item"><a href="news.html">News</a></li>
+            <li class="menu-item"><a href="favoritos.html">Favorites</a></li>
+            <li class="menu-item current-menu-item"><a href="listas.html">Lists</a></li>
+            <li class="menu-item"><a href="Login.html">Log in</a></li>
+          </ul>
+        </div>
+      </div>
+    </header>
+
+    <main class="main-content">
+      <div class="container">
+        <h2 class="section-title">Listas recomendadas</h2>
+        <div id="list-container" class="list-grid">
+          <!-- Listas generadas dinámicamente aquí -->
+        </div>
+      </div>
+    </main>
+  </div>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', async () => {
+      try {
+        const response = await fetch('http://localhost:3000/api/listas'); // Asegúrate de que esta ruta sea correcta
+        const data = await response.json();
+
+        const listContainer = document.getElementById('list-container');
+        listContainer.innerHTML = ""; // Limpia el contenedor
+
+        data.forEach((lista) => {
+          const listHTML = `
+            <div class="list-item">
+              ${lista.Nombre}
+            </div>
+          `;
+          listContainer.insertAdjacentHTML('beforeend', listHTML);
+        });
+      } catch (error) {
+        console.error('Error al cargar las listas:', error);
+      }
+    });
+  </script>
+</body>
+</html>
