@@ -1,2 +1,2 @@
 # Proyecto_CarteleraPeliculas
-Proyect odesarrolado con NodeJ y MongoDB
+Proyecto desarrollado con NodeJ y MongoDB
